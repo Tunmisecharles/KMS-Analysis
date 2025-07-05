@@ -1,103 +1,107 @@
-# Analysis Report: Amazon Product Review Analysis
+# Analysis Report: Kultra Mega Stores Inventory SQL Analysis
 
 ---
 
 ## 1. Background and Overview of the Analysis
 
 **Purpose:**  
-To analyze customer reviews on Amazon products in order to identify high-performing categories, understand sentiment trends, and guide eCommerce strategy through product and rating insights.
+To analyze order, sales, and logistics data for Kultra Mega Stores (KMS) Abuja division to identify opportunities for revenue optimization, shipping efficiency, and customer segmentation.
 
 **Scope:**  
-- Timeframe: Covers reviews from a multi-year dataset (assumed 2015–2020)  
-- Data Source: CSV-based dataset of Amazon product reviews  
-- Business Focus: Product category performance, customer satisfaction, and verified purchase trends
+- Timeframe: 2009 to 2012  
+- Business Unit: KMS Abuja (part of a larger national chain)  
+- Dataset: Orders, products, customer segments, profits, and shipping data
 
 **Key Questions:**  
-- Which product categories have the highest average ratings?  
-- What categories or products have the most reviews?  
-- Do verified purchases correlate with better ratings?  
-- Which regions dominate review volume?
+- Which products and customers drive the most sales and profit?  
+- Which regions underperform or outperform?  
+- Is shipping cost aligned with order urgency (priority)?  
+- What are the top inefficiencies or missed opportunities?
 
 **Methodology:**  
-Descriptive analytics using Microsoft Excel. Techniques include pivot tables, conditional formatting, charts, and filters to analyze review distribution, average ratings, and category-wise breakdowns.
+Descriptive and comparative SQL analysis using Microsoft SQL Server. SQL queries were written to group, aggregate, and filter data by key dimensions such as Product Category, Segment, and Ship Mode.
 
 ---
 
 ## 2. Data Structure Overview
 
 **Data Sources:**  
-Manually imported CSV file containing Amazon product reviews.
+- CSV file imported into SQL Server using SSMS  
+- Table Name: `KMS_Orders`
 
 **Variables Used:**  
-- `Product Category` – Used to segment reviews  
-- `Rating` – Numeric score between 1 and 5  
-- `Verified Purchase` – Binary indicator  
-- `Region` – Location metadata  
-- `Review Text` – Not used for NLP but provides qualitative backing
+- `Sales`, `Profit`, `ShippingCost` – Key financial metrics  
+- `OrderPriority`, `ShipMode` – Delivery urgency and method  
+- `Segment`, `CustomerName` – For profiling  
+- `Region`, `ProductCategory` – For performance by geography/product
 
 **Data Quality:**  
-- Minor missing values handled with filters  
-- No advanced text cleaning required as analysis is quantitative  
+- Converted textual currency fields to numeric (e.g., Sales, ShippingCost)  
+- Filtered and grouped for clean aggregations  
+- Cleaned misaligned column types (e.g., `ShippingCost` as `NVARCHAR`)
 
 **Tools & Technologies:**  
-- Microsoft Excel  
-- Excel Pivot Tables & Charts  
-- Screenshot annotations for visuals
+- Microsoft SQL Server  
+- T-SQL queries  
+- Manual result interpretation with tabular outputs  
+- Optional: screenshots of outputs for documentation
 
 ---
 
 ## 3. Executive Summary
 
 **Top Findings:**  
-- Electronics and Books have the highest average ratings (4.5+).  
-- Verified purchases tend to have higher ratings (avg. 4.2) than unverified ones.  
-- Some product categories with the highest review counts (e.g., Apparel) also had the most polarized ratings.
+- Office Supplies had the highest total sales across categories.  
+- Delivery Truck, the cheapest method, was used often even for high-priority orders.  
+- A small group of Corporate customers generated a majority of profit.
 
 **Business Impact:**  
-- High-rated categories present upselling and cross-promotional opportunities.  
-- Identifying negative review patterns can reduce churn and increase conversion.
+- Inefficient shipping increased costs and potentially delayed critical deliveries.  
+- Under-leveraged segments (e.g., Small Business) could be optimized with targeted strategies.
 
 **Success Metrics:**  
-- Average product rating by category  
-- Total number of reviews  
-- Verified vs. unverified review rating comparison
+- Total sales by category, region  
+- Profit per customer/segment  
+- Shipping cost by method and priority
 
 ---
 
 ## 4. Insights Deep Dive
 
 **Trends & Patterns:**  
-- Verified purchases skew more positively across all categories  
-- Home & Kitchen products had seasonal review peaks (e.g., holidays)
+- Regular Air was the most used shipping method across all priority levels  
+- High-priority orders (Critical, High) used Delivery Truck far too often  
+- Consumer customers had higher return rates compared to Corporate
 
 **Root Causes:**  
-- Delivery issues and packaging complaints caused most 1–2 star ratings  
-- Low-rated products often had high return rates (not quantified but mentioned)
+- Lack of policy enforcement on shipping method vs. order priority  
+- High number of low-spending customers with no personalized engagement
 
 **Benchmarking:**  
-- Compared top category ratings to known Amazon top sellers (assumed)
+- Compared order counts and profits between segments  
+- Identified mismatches in order priority vs. delivery mode
 
 **Outliers & Exceptions:**  
-- Several products with fewer reviews (<10) showed suspiciously perfect ratings—potential bias or inflated feedback.
+- A few customers with low sales but unusually high shipping costs (possible error or special case orders)
 
 ---
 
 ## 5. Recommendations
 
 **Actionable Steps:**  
-- Focus marketing on Electronics and Books  
-- Improve packaging/logistics for low-rated categories  
-- Encourage verified reviews via post-purchase follow-ups
+- Implement rules to restrict shipping modes based on order priority  
+- Target bottom 10 customers with loyalty programs or incentives  
+- Focus on profitable Corporate accounts with retention campaigns
 
 **Ownership:**  
-- Marketing: Product promotions  
-- Logistics: Address packaging issues  
-- Customer Experience: Post-purchase engagement
+- Operations: Shipping policy redesign  
+- Sales: Customer targeting and loyalty programs  
+- IT/Data: Automate shipping constraints in ordering system
 
 **Timeline:**  
-- Quick wins (within 2 weeks): Email follow-ups for verified reviews  
-- Medium-term (1 month): Improve logistics feedback loops
+- Phase 1 (1 month): Shipping policy enforcement  
+- Phase 2 (2–3 months): Customer engagement rollout
 
 **Risks & Mitigations:**  
-- Bias from incomplete review data → Cross-check with seller data  
-- Reviewer fraud (perfect scores) → Flag products with low volume but perfect reviews
+- Customer pushback on shipping limits → Allow override with manager approval  
+- Data accuracy issues → Validate shipping cost records quarterly
